@@ -49,7 +49,9 @@ class App extends Component {
                 className={'select-small'}
               ></SelectBox>
             </div>
-            <button type="submit">확인</button>
+            <div className="btns">
+              <button type="submit">확인</button>
+            </div>
           </form>
         </div>
       </div>

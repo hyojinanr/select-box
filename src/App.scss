@@ -20,6 +20,27 @@
   }
 }
 
+.btns {
+  display: block;
+  width:100%;
+  padding:20px 10px;
+
+  button {
+    background: #58b3ff;
+    color: #fff;
+    border:1px solid #46a4f3;
+    border-radius: 2px;
+    padding: 10px 30px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 15px;
+
+    &:hover {
+      background: #3b9aea;
+    }
+  }
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

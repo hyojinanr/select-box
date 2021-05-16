@@ -111,7 +111,7 @@ export default class SelectBox extends Component<Props, State> {
                })
                }
             </select>
-            <div className="selected-value" onClick={this.clickSelectBox.bind(this)}>{ this.state.selectedLabel ? this.state.selectedLabel : (this.state.selectedValue ? this.state.selectedValue : '선택') }</div>
+            <div className={this.state.isShow ? 'selected-value focus' : 'selected-value'} onClick={this.clickSelectBox.bind(this)}>{ this.state.selectedLabel ? this.state.selectedLabel : (this.state.selectedValue ? this.state.selectedValue : '선택') }</div>
             <div className="arrow"></div>
             { this.state.isShow &&
                <div className="options">

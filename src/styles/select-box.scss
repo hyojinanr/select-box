@@ -1,3 +1,11 @@
+@mixin transition-duration($type, $duration) {
+   -webkit-transition: $type $duration;
+   -moz-transition: $type $duration;
+   -ms-transition: $type $duration;
+   -o-transition: $type $duration;
+   transition: $type $duration;
+}
+
 .select-box {
    display: block;
    position: relative;
@@ -8,7 +16,7 @@
    select {
       visibility: hidden;
       display: none;
-   }   
+   }
 
    .selected-value {
       border:1px solid #d9d9d9;
@@ -18,6 +26,17 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
+
+      &:hover {
+         border:1px solid #58b3ff;
+         @include transition-duration(border, .5s);
+      }
+
+      &.focus {
+         border:1px solid #58b3ff;
+         box-shadow: 0 0 4px #58b3ff;
+         @include transition-duration(box-shadow, .5s);
+      }
    }
 
    .arrow {
@@ -92,3 +111,5 @@
    
 
 }
+
+
