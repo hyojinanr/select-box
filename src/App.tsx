@@ -13,9 +13,13 @@ class App extends Component {
   
     return (
       <div className="App">
-        <SelectBox
-          datas={testData}
-        ></SelectBox>
+        <div className="container">
+          <div className="box">
+            <SelectBox
+              datas={testData}
+            ></SelectBox>
+          </div>
+        </div>
       </div>
     );
   }
