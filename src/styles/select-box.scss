@@ -26,6 +26,14 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
+      background: #fff;
+
+      &.disabled {
+         background: #f5f5f5;
+         cursor:not-allowed;
+         border: 1px solid #bfbfbf;
+         color: #bfbfbf;
+      }
 
       &:hover {
          border:1px solid #58b3ff;

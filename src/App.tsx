@@ -9,7 +9,9 @@ class App extends Component {
 
     alert("Large Select : " + event.target.elements.largeSelect.value + '\r\n' +
     "Middle Select : " + event.target.elements.middleSelect.value + '\r\n' +
-    "Small Select : " + event.target.elements.smallSelect.value + '\r\n'); 
+    "Small Select : " + event.target.elements.smallSelect.value + '\r\n' +
+    "Disabled Select : " + event.target.elements.disabledSelect.value + '\r\n'
+    ); 
   }
 
   render() {
@@ -49,6 +51,17 @@ class App extends Component {
                 className={'select-small'}
               ></SelectBox>
             </div>
+
+            <div className="box">
+              <span>Disabled Select</span>
+              <SelectBox
+                inputName={'disabledSelect'}
+                datas={testData}
+                isDisabled={true}
+              ></SelectBox>
+            </div>
+
+            
             <div className="btns">
               <button type="submit">확인</button>
             </div>

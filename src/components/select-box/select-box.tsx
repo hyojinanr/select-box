@@ -9,6 +9,7 @@ export interface Props {
    datas?: OptionSet[];
    className?: string;
    inputName?:string;
+   isDisabled?: boolean;
 }
 
 export interface State {
@@ -74,6 +75,8 @@ export default class SelectBox extends Component<Props, State> {
    };  
 
    clickSelectBox() {
+      if(this.props.isDisabled) return;
+
       this.setState((state) => ({
             isShow : !state.isShow,
             clickedOutside: false
@@ -145,6 +148,7 @@ export default class SelectBox extends Component<Props, State> {
             break;
 
             case 'Enter':
+               if(this.props.isDisabled) break;
                this.setState((state) => ({
                   isShow: true,
                   clickOutside: false
@@ -188,14 +192,14 @@ export default class SelectBox extends Component<Props, State> {
     }
    
    render() {
-      const { className, datas, inputName } = this.props;
+      const { className, datas, inputName, isDisabled } = this.props;
       return (
          <div className={className ? 'select-box ' + className : 'select-box'}
             ref={this.myRef}
             onKeyDown={this.onKeyPressed.bind(this)}
             tabIndex={0}
             >
-            <select name={inputName} onChange={e => this.changeValue(e)} value={this.state.selectedValue}>
+            <select name={inputName} onChange={e => this.changeValue(e)} value={this.state.selectedValue} disabled={isDisabled}>
                <option value="">선택</option>
                {datas && 
                 datas.map((item: OptionSet, index) => {
@@ -205,7 +209,7 @@ export default class SelectBox extends Component<Props, State> {
                })
                }
             </select>
-            <div className={this.state.isShow ? 'selected-value focus' : 'selected-value'} onClick={this.clickSelectBox.bind(this)}>{ this.state.selectedLabel ? this.state.selectedLabel : (this.state.selectedValue ? this.state.selectedValue : '선택') }</div>
+            <div className={isDisabled ?'selected-value disabled' : (this.state.isShow ? 'selected-value focus' : 'selected-value')} onClick={this.clickSelectBox.bind(this)}>{ this.state.selectedLabel ? this.state.selectedLabel : (this.state.selectedValue ? this.state.selectedValue : '선택') }</div>
             <div className="arrow"></div>
             { this.state.isShow &&
                <div className="options">
