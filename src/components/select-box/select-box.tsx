@@ -1,34 +1,41 @@
 import React, { Component } from 'react';
 
-export interface Option {
-   readonly value:string;
-   readonly label: string;
+export interface OptionSet {
+   value?:string;
+   label?: string;
+   isDisabled?: boolean;
 }
-
-export const testData : readonly Option[] = [
-   { value: '더 기프팅 컴퍼니', label: '더 기프팅 컴퍼니'},
-   { value: '월간 가슴', label: '월간 가슴' },
-   { value: '인더웨어', label: '인더웨어' },
-   { value: '프론트엔드 엔지니어', label: '프론트엔드 엔지니어' }
- ];
-
-export default class SelectBox extends Component {
+export interface Props {
+   datas?: OptionSet[];
+   className?: string;
+}
+export default class SelectBox extends Component<Props> {
    state = {
       selectedValues: null
    };
+   options: OptionSet[] = [];
    
-   constructor(props:any) {
+   constructor(props:Props) {
       super(props);
       this.state.selectedValues = null;
    }
 
+   componentDidMount() {
+      if(this.props.datas) {
+         this.props.datas?.map((item: OptionSet) => {
+            this.options.push(item);
+         })         
+      }
+   }
+
    render() {
+      
       return (
-         <div className="select-box" style={{width: 150}}>
+         <div className={this.props.className != null ? 'select-box' : 'select-box ' + this.props.className}>
             <select>
                <option defaultValue="true" value="">선택</option>
                {
-                testData.map((item: Option, index) => {
+                this.options.map((item: OptionSet, index) => {
                    return (
                      <option key={index} value={item.value}>{item.label}</option>
                    );
@@ -38,7 +45,7 @@ export default class SelectBox extends Component {
             <div className="selected-value">선택</div>
             <div className="options">
             {
-                testData.map((item: Option, index) => {
+                this.options.map((item: OptionSet, index) => {
                    return (
                      <div key={index} className={this.state.selectedValues === 'item.value' ? 'option selected' : 'option'} >{item.label}</div>
                    );
