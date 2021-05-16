@@ -10,6 +10,14 @@
 
 .box {
   width:200px;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 10px;
+
+  span {
+    margin-bottom: 10px;
+    display: block;
+  }
 }
 
 @keyframes App-logo-spin {
