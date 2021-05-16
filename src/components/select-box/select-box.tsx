@@ -16,13 +16,17 @@ export interface State {
    selectedLabel?:string;
    isShow?: boolean;
    clickOutside?:boolean;
+   focusedValue?:string;
+   focusedIndex?: string;
 }
 export default class SelectBox extends Component<Props, State> {
    state: State = {
       selectedValue: '',
       selectedLabel: '',
       isShow: false,
-      clickOutside: true
+      clickOutside: true,
+      focusedValue: '',
+      focusedIndex: '-1',
    };
 
    myRef:RefObject<any> = React.createRef();
@@ -36,7 +40,9 @@ export default class SelectBox extends Component<Props, State> {
          selectedValue : '',
          selectedLabel: '',
          isShow: false,
-         clickOutside: true
+         clickOutside: true,
+         focusedValue: '',
+         focusedIndex: '-1'
       })
    }
 
@@ -91,18 +97,99 @@ export default class SelectBox extends Component<Props, State> {
       }));
    }
 
-   collapse() {
-      this.setState((state) => ({
-         isShow: false
-      }));
-   }
+   
+   onKeyPressed(event:any) {
+      if(this.state.isShow) {
+         switch(event.key) {
+            case 'ArrowLeft':
+               this.focusValue('previous')
+            break;
 
+            case 'ArrowUp':
+               this.focusValue('previous')
+            break;
+
+            case 'ArrowRight':
+               this.focusValue('next');
+            break;     
+
+            case 'ArrowDown':
+               this.focusValue('next');
+            break;
+
+            case 'Enter':
+               this.selectByKey();
+            break;
+
+            case 'Tab':
+               this.setState((state) => ({
+                  isShow: false,
+                  clickOutside: true
+               }))
+            break;
+         }      
+      } else {
+         switch(event.key) {
+            case 'Tab':
+            this.setState((state) => ({
+               isShow: false,
+               clickOutside: true
+            }))
+            break;
+
+            case 'Enter':
+               this.setState((state) => ({
+                  isShow: true,
+                  clickOutside: false
+               }))
+
+            break;
+
+            default:
+               this.setState((state) => ({
+                  isShow: false,
+                  clickOutside: true
+               }))
+            break;
+         }
+         
+      }
+    }
+
+    focusValue(prevNext:string) {
+      const maxLenth = this.props.datas ? this.props.datas.length-1 : 0;
+      if(prevNext === 'previous') {
+         this.setState((state) => ({
+            focusedIndex: state.focusedIndex !== '-1' ? (Number(state.focusedIndex) - 1).toString() : maxLenth.toString(),
+         }));
+      } else {
+         this.setState((state) => ({
+            focusedIndex: state.focusedIndex !== maxLenth.toString() ? (Number(state.focusedIndex) + 1).toString() : '0'
+         }));
+      } 
+    }
+
+    selectByKey() {
+      const item = this.props.datas ? this.props.datas[Number(this.state.focusedIndex)] : null;
+      if(item) {
+         this.setState((state) => ({
+            selectedValue: item.value,
+            selectedLabel: item.label,         
+            isShow: false
+         }));
+      }
+    }
    
    render() {
       const { className, datas, inputName } = this.props;
       return (
-         <div className={className ? 'select-box ' + className : 'select-box'} ref={this.myRef}>
+         <div className={className ? 'select-box ' + className : 'select-box'}
+            ref={this.myRef}
+            onKeyDown={this.onKeyPressed.bind(this)}
+            tabIndex={0}
+            >
             <select name={inputName} onChange={e => this.changeValue(e)} value={this.state.selectedValue}>
+               <option value="">선택</option>
                {datas && 
                 datas.map((item: OptionSet, index) => {
                    return (
@@ -116,9 +203,9 @@ export default class SelectBox extends Component<Props, State> {
             { this.state.isShow &&
                <div className="options">
                {datas &&
-                  datas.map((item: OptionSet, index) => {
+                  datas.map((item: OptionSet, index:number) => {
                      return (
-                        <div key={index} onClick={() => this.clickSelectValue(item)} className={ this.state.selectedValue === item.value ? 'option selected' : 'option'} >{item.label}</div>
+                        <div key={index} onClick={() => this.clickSelectValue(item)} className={ this.state.selectedValue === item.value ? 'option selected' : (this.state.focusedIndex === index.toString() ? 'option indexed' : 'option')}>{item.label}</div>
                      );
                   })  
                   }

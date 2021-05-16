@@ -32,7 +32,8 @@
          @include transition-duration(border, .5s);
       }
 
-      &.focus {
+      &:focus, &.focus {
+         outline: 0;
          border:1px solid #58b3ff;
          box-shadow: 0 0 4px #58b3ff;
          @include transition-duration(box-shadow, .5s);
@@ -70,7 +71,7 @@
             font-weight: bold;
          }
 
-         &:hover {
+         &:hover, &.indexed {
             background:#f5f5f5;
          }
       }
