@@ -46,16 +46,6 @@ export default class SelectBox extends Component<Props, State> {
          focusedIndex: '-1'
       })
    }
-
-   // componentDidUpdate(prevProps:any) {
-   //    if (this.props.datas !== prevProps.datas) {
-   //       this.setState((state, props) => ({
-   //          datas : props.datas
-   //       })
-   //    );
-   //    }
-   //  }
-
    componentDidMount() {
       document.addEventListener("mousedown", this.handleClickOutside);
    }
