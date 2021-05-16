@@ -127,6 +127,13 @@ export default class SelectBox extends Component<Props, State> {
                   clickOutside: true
                }))
             break;
+
+            case 'Escape':
+               this.setState((state) => ({
+                  isShow: false,
+                  clickOutside: true
+               }))
+            break;
          }      
       } else {
          switch(event.key) {
