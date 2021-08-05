@@ -190,7 +190,7 @@ export default class SelectBox extends Component<Props, State> {
             tabIndex={0}
             >
             <select name={inputName} onChange={e => this.changeValue(e)} value={this.state.selectedValue} disabled={isDisabled}>
-               <option value="">선택</option>
+               <option value="">Select</option>
                {datas && 
                 datas.map((item: OptionSet, index) => {
                    return (
@@ -199,7 +199,7 @@ export default class SelectBox extends Component<Props, State> {
                })
                }
             </select>
-            <div className={isDisabled ?'selected-value disabled' : (this.state.isShow ? 'selected-value focus' : 'selected-value')} onClick={this.clickSelectBox.bind(this)}>{ this.state.selectedLabel ? this.state.selectedLabel : (this.state.selectedValue ? this.state.selectedValue : '선택') }</div>
+            <div className={isDisabled ?'selected-value disabled' : (this.state.isShow ? 'selected-value focus' : 'selected-value')} onClick={this.clickSelectBox.bind(this)}>{ this.state.selectedLabel ? this.state.selectedLabel : (this.state.selectedValue ? this.state.selectedValue : 'Select') }</div>
             <div className="arrow"></div>
             { this.state.isShow &&
                <div className="options">

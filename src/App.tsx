@@ -63,7 +63,7 @@ class App extends Component {
 
             
             <div className="btns">
-              <button type="submit">확인</button>
+              <button type="submit">Submit</button>
             </div>
           </form>
         </div>
